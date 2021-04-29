@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/ -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="fr" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- HTML meta -->
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Contrôler un servomoteur avec une carte Arduino / Genuino | Carnet du maker - L'esprit Do It Yourself</title>
+
+    <!-- Standard meta -->
+    <meta name="author" content="Fabien Batteix">
+    <meta name="copyright" content="© TamiaLab 2015">
+    <meta name="description" content="L&#39;esprit du Do It Yourself">
+
+    <!-- Analytics verification codes -->
+    <meta name="google-site-verification" content="t3KwbPbJCHz-enFYH50Hcd8PDN8NWWC9gCMx7uTjhpQ">
+    <meta property="twitter:account_id" content="3043075520">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://www.carnetdumaker.net/static/images/apple-touch-icon.2805113e07a3.png">
+    <link rel="icon" sizes="192x192" href="https://www.carnetdumaker.net/static/images/icon-touch.2805113e07a3.png">
+    <link rel="shortcut icon" href="https://www.carnetdumaker.net/static/favicon.338abbb5ea8d.ico">
+    <meta name="msapplication-TileColor" content="#4582ec">
+    <meta name="msapplication-TileImage" content="https://www.carnetdumaker.net/static/images/tile.9bee3f492c17.png">
+
+    <!-- RSS link -->
+    
+    <link rel="alternate" type="application/rss+xml" title="Articles récents (flux RSS)" href="https://www.carnetdumaker.net/articles/flux/">
+    <link rel="alternate" type="application/atom+xml" title="Articles récents (flux Atom)" href="https://www.carnetdumaker.net/articles/flux/atom/">
+
+
+    <!-- OpenGraph and Twitter cards -->
+    
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Contrôler un servomoteur avec une carte Arduino / Genuino">
+        <meta property="og:description" content="Dans ce tutoriel, nous allons apprendre ensemble à utiliser des servomoteurs de modélisme avec une carte Arduino / Genuino. Nous étudierons la fonction d&#39;un servomoteur et nous ferons quelques tests avec un modèle classique de servomoteur. En bonus, nous verrons comment tirer profit de toutes les fonctionnalités offertes par la bibliothèque Arduino &quot;Servo&quot;.">
+        <meta property="og:image" content="https://www.carnetdumaker.net/uploads/headings/img_une_tuto_arduino_servo.jpg">
+        <meta property="og:url" content="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/">
+        <meta property="og:site_name" content="!-APP.SHORT_TITLE-!">
+        <meta property="og:locale" content="fr_FR">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@carnetdumaker">
+        <meta name="twitter:creator" content="@skywodd">
+        <!-- Twitter cards: title truncate after 70 chars, 200 chars for description -->
+        <!-- Twitter cards: minimum image size: 120x120px for summary, 280x150px for summary_large_image and photo -->
+        <!-- Type photo require og:image:width and og:image:height for better cropping -->
+        
+    
+        <meta property="article:author" content="https://www.facebook.com/fabien.batteix">
+    
+    <meta property="article:published_time" content="2016-05-04T12:00:00+02:00">
+    <meta property="article:modified_time" content="2016-05-05T13:43:11.907627+02:00">
+
+    
+
+    <!-- Google search add-on -->
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "url": "https://www.carnetdumaker.net",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.carnetdumaker.net/recherche/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+
+    <!-- Extra head -->
+    
+
+    <!-- Canonical URL -->
+    
+
+    <!-- Bootstrap -->
+    
+        <link rel="stylesheet" href="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/bootstrap.min.46b8cbc34bfa.css">
+    
+    <style>
+        body {
+            padding-top: 120px;
+            padding-bottom: 20px;
+            background-image: url("https://www.carnetdumaker.net/static/images/px_by_Gre3g.4a5f6677a4df.png");
+        }
+
+        .page-content {
+            background-color: white;
+        }
+
+        .page-footer {
+            background-color: white;
+        }
+
+        /* Fix for anchor link */
+        :target:before {
+            content: "";
+            display: block;
+            height: 140px; /* fixed header height*/
+            margin-top: -140px; /* negative fixed header height */
+            visibility: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/main.a483d303d861.css">
+
+    <!-- Font-awesome -->
+    
+        <link rel="stylesheet" href="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/font-awesome.min.4fbd15cb6047.css">
+    
+
+    <!-- Modernizr -->
+    <script src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/modernizr-2.8.3-respond-1.4.2.min.c5de01ee6da0.js.téléchargement"></script>
+    <script src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/jquery-1.11.3.min.895323ed2f72.js.téléchargement"></script>
+</head>
+
+<body>
+    <!-- No support for IE versions before IE8 -->
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">Vous utilisez un navigateur web <strong>extrêmement vieux</strong>. Merci <a href="http://browsehappy.com/">de mettre à jour votre navigateur</a> afin de visiter ce site sans problémes.</p>
+    <![endif]-->
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-navbar-collapse-1">
+                    <span class="sr-only">Ouvrir le menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- TODO Add logo in the a tag above -->
+                <a class="navbar-brand" href="https://www.carnetdumaker.net/">Carnet du maker</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="header-navbar-collapse-1">
+                <!-- Left navbar -->
+                <ul class="nav navbar-nav">
+                    <li><a href="https://www.carnetdumaker.net/articles/">Blog</a></li>
+                    <li><a href="https://www.carnetdumaker.net/forum/">Forum</a></li>
+                    <li class="dropdown">
+                        <a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Communauté <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="https://www.carnetdumaker.net/membres/"><i class="fa fa-users"></i> Liste des membres</a></li>
+                            <li><a href="https://www.carnetdumaker.net/annonces/"><i class="fa fa-bullhorn"></i> Annonces &amp; news</a></li>
+                            <li><a href="https://www.carnetdumaker.net/bugtracker/"><i class="fa fa-bug"></i> Gestionnaire de bugs</a></li>
+                            <li><a href="https://www.carnetdumaker.net/images/"><i class="fa fa-picture-o"></i> Galerie d'images</a></li>
+                            <li><a href="https://www.carnetdumaker.net/snippets/"><i class="fa fa-code"></i> Extraits de code</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Right navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form role="search" class="navbar-form hidden-sm" method="get" action="https://www.carnetdumaker.net/recherche/">
+                            <div class="form-group">
+                                <label class="sr-only" for="searchInput">Recherche</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchInput" name="q" placeholder="Recherche" required="">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search" title="Go !"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <a href="https://www.carnetdumaker.net/recherche/" title="Recherche" class="visible-sm"><i class="fa fa-search"></i></a>
+                    </li>
+                    <li class="dropdown">
+                    
+                        <a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Connexion <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="https://www.carnetdumaker.net/authentification/connexion/?next=/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/"><i class="fa fa-lock"></i> Connexion</a></li>
+                            <li><a href="https://www.carnetdumaker.net/inscription/"><i class="fa fa-user-plus"></i> Inscription</a></li>
+                        </ul>
+                    
+                    </li>
+				</ul>
+            </div>
+        </div>
+        
+
+    <!-- Fix body padding -->
+    <style>
+        body {
+            padding-top: 185px;
+        }
+    </style>
+
+    <!-- Second navbar for blog categories -->
+    <div class="container" id="blog-category-navbar-fade" style="display: none;">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-navbar-collapse-2">
+                <span class="sr-only">Ouvrir le menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://www.carnetdumaker.net/articles/categories/">Catégories</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="header-navbar-collapse-2">
+            <!-- Blog navbar -->
+            <ul class="nav navbar-nav">
+                
+                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/blog/">Blog</a></li>
+                    
+                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/cours/">Cours</a></li>
+                    
+                
+                    
+                        <li class="dropdown">
+                            <a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tutoriels <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="https://www.carnetdumaker.net/articles/categories/tutoriels/">Voir cette catégorie</a></li>
+                                <li class="divider"></li>
+                                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/tutoriels/arduino/">Arduino</a></li>
+                    
+                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/tutoriels/administration-systeme/">Administration système</a></li>
+                    
+                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/tutoriels/mecanique/">Mécanique</a></li>
+                    
+                
+                            </ul>
+                        </li>
+                    
+                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/projets/">Projets</a></li>
+                    
+                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/tests/">Tests</a></li>
+                    
+                
+                    
+                        <li><a href="https://www.carnetdumaker.net/articles/categories/dossiers/">Dossiers</a></li>
+                    
+                
+                <li><a href="https://www.carnetdumaker.net/articles/archives/">Les archives</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+        <!-- Beta-stage alert -->
+        <p class="text-warning text-center" id="beta-alert" style="display: none;"><i class="fa fa-exclamation-triangle"></i> Site en beta !
+            Merci de rapporter tout bug sur le <a class="text-warning" href="https://www.carnetdumaker.net/bugtracker/">gestionnaire de bug</a> du site.
+            Bonne lecture !
+        </p>
+    </nav>
+
+    <!-- Page content -->
+    <div class="container container-narrow page-content">
+
+        <!-- Breadcrumb -->
+        <div class="row">
+            <ul class="breadcrumb">
+                <li><a href="https://www.carnetdumaker.net/">Accueil</a></li>
+    <li><a href="https://www.carnetdumaker.net/articles/">Articles</a></li>
+    <li><a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/">Contrôler un servomoteur avec une carte Arduino / Genuino</a></li>
+            </ul>
+        </div>
+
+        <!-- Global announcements -->
+        <div class="row">
+            
+
+    <div class="col-md-12">
+        <div class="panel-group">
+            
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h1 class="panel-title"><i class="fa fa-bullhorn"></i> <a href="https://www.carnetdumaker.net/annonces/gros-probleme-demails-avec-yahoo/">Gros probléme d'emails avec Yahoo</a></h1>
+                    </div>
+
+                    <div class="panel-body">
+                        <p class="text-justify">Yahoo refuse tous les emails du site. Si vous avez une adresse chez un autre prestataire, c'est le moment de l'utiliser <img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/wink.5c9123198072.png" alt=";)" class="emoticons">
+</p>
+<p class="text-justify">En cas de soucis, n'hésitez pas à aller faire un tour sur la page de contact en bas de page.</p>
+
+                    </div>
+
+                    <div class="panel-footer">
+                        <p><i class="fa fa-user"></i> par <a href="https://www.carnetdumaker.net/membres/skywodd/">skywodd</a>, le <time datetime="21-02-2017 19:27">fév. 21, 2017 à 7:27 après-midi</time></p>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+
+        </div>
+
+        <!-- Flash messages -->
+        
+
+        <!-- Extra before content -->
+        <div class="row">
+            
+        </div>
+
+        <!-- Content -->
+        <div class="row">
+            
+
+
+    <!-- Article detail -->
+    <div class="col-md-12">
+
+        <!-- Article title -->
+        <h1>Contrôler un servomoteur avec une carte Arduino / Genuino</h1>
+        <h2 class="no-top-margin"><small>3, 2, 1, ça tourne !</small></h2>
+
+        <!-- Article preview mode warning -->
+        
+
+        <!-- Article heading image -->
+        
+            <img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/img_une_tuto_arduino_servo.jpg" alt="Image d&#39;entête" class="img-responsive">
+            <p><!-- Spacer --></p>
+        
+
+        <!-- Article information 1/2 -->
+        <p><i class="fa fa-user"></i> par <a href="https://www.carnetdumaker.net/membres/skywodd/">skywodd</a> |
+            <i class="fa fa-calendar"></i> <time datetime="04-05-2016 10:00">mai 4, 2016</time> |
+            <i class="fa fa-copyright"></i> Licence (voir pied de page)
+            </p>
+        <p><i class="fa fa-folder-open"></i> Catégories : <a href="https://www.carnetdumaker.net/articles/categories/tutoriels/"><span class="label label-info">Tutoriels</span></a> <a href="https://www.carnetdumaker.net/articles/categories/tutoriels/arduino/"><span class="label label-info">Arduino</span></a> |
+            <i class="fa fa-tags"></i> Mots clefs : <a href="https://www.carnetdumaker.net/articles/tags/arduino/"><span class="label label-info">Arduino</span></a> <a href="https://www.carnetdumaker.net/articles/tags/genuino/"><span class="label label-info">Genuino</span></a> <a href="https://www.carnetdumaker.net/articles/tags/servomoteurs/"><span class="label label-info">Servomoteurs</span></a></p>
+
+        <!-- Article information 2/2 -->
+        
+            <p><i class="fa fa-pencil-square-o"></i>Cet article a été modifié pour la dernière fois le <time datetime="05-05-2016 11:43">mai 5, 2016 à 11:43 matin</time></p>
+        
+        
+        
+            <p><i class="fa fa-warning"></i> Cet article n'a pas été mis à jour depuis un certain temps, son contenu n'est peut être plus d'actualité.</p>
+        
+
+        <!-- Staff links -->
+        
+
+        <!-- Article head notes -->
+        
+            
+        
+
+        <hr>
+
+        <!-- Article description -->
+        
+            <p><strong>Dans ce tutoriel, nous allons apprendre ensemble à utiliser des servomoteurs de modélisme avec une carte Arduino / Genuino. Nous étudierons la fonction d'un servomoteur et nous ferons quelques tests avec un modèle classique de servomoteur. En bonus, nous verrons comment tirer profit de toutes les fonctionnalités offertes par la bibliothèque Arduino "Servo".</strong></p>
+        
+
+        <!-- Article summary (HTML) -->
+        
+            <h3>Sommaire</h3>
+            <ul class="titles-summary">
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#principe-de-fonctionnement-et-de-controle-dun-servomoteur" class="titles-summary-link">Principe de fonctionnement et de contrôle d'un servomoteur</a>
+</li>
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#utiliser-un-servomoteur-avec-une-carte-arduino-genuino" class="titles-summary-link">Utiliser un servomoteur avec une carte Arduino / Genuino</a>
+<ul class="titles-summary-subentry">
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#le-montage" class="titles-summary-link">Le montage</a>
+</li>
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#le-code" class="titles-summary-link">Le code</a>
+<ul class="titles-summary-subentry">
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#mise-en-oeuvre-de-la-bibliotheque-servo" class="titles-summary-link">Mise en oeuvre de la bibliothèque Servo</a>
+</li>
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#initialisation-de-la-bibliotheque-servo" class="titles-summary-link">Initialisation de la bibliothèque Servo</a>
+</li>
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#modification-de-langle-du-servomoteur" class="titles-summary-link">Modification de l'angle du servomoteur</a>
+</li>
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#exemple-sweep" class="titles-summary-link">Exemple : Sweep</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="titles-summary-entry">
+<a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#conclusion" class="titles-summary-link">Conclusion</a>
+</li>
+</ul>
+            <p><!-- Spacer --></p>
+        
+
+        <!-- Article content -->
+        
+            <p class="text-justify">Bonjour à toutes et à tous !
+</p>
+<p class="text-justify">Dans ce tutoriel, on va s'intéresser aux servomoteurs et à l'utilisation de servomoteurs avec une carte Arduino / Genuino.
+</p>
+<p class="text-justify">Les <a href="https://fr.wikipedia.org/wiki/Servomoteur">servomoteurs</a> sont des moteurs un peu particuliers, qui peuvent tourner avec une liberté d'environ 180° 
+et garder de manière relativement précise l'angle de rotation que l'on souhaite obtenir.
+</p>
+<p class="text-justify">On utilise des servomoteurs couramment en modélisme pour contrôler des systèmes mécaniques (gouverne d'avion, accélérateur de moteur thermique, etc.). 
+Les servomoteurs sont aussi couramment utilisés en robotique pour faire des mini-robots, des actionneurs ou des indicateurs rotatifs.
+</p>
+<h3><a id="principe-de-fonctionnement-et-de-controle-dun-servomoteur">Principe de fonctionnement et de contrôle d'un servomoteur</a></h3>
+
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/photographie-servomoteur-chinois-9-grammes/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/P1000500_recadre.jpg" alt="Photographie servomoteur chinois &quot;9 grammes&quot;" width="640" height="394"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Servomoteur chinois "9 grammes"</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Un servomoteur de modélisme se présente sous la forme d'un petit rectangle avec deux languettes sur les côtés pour la fixation et un axe décentré avec un bras (interchangeable) pour la liaison mécanique. 
+</p>
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/photographie-servomoteur-futuba-s3003/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/P1000512_recadre.jpg" alt="Photographie servomoteur Futuba S3003" width="640" height="577"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Servomoteur Futuba S3003</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Il existe divers types de servomoteurs, de taille, poids et couple (force) différents. 
+La photographie ci-dessus présente un servomoteur très classique en modélisme : le Futuba S3003. 
+Un peu plus bas dans l'article, on utilisera un autre servomoteur, communément appelé "servomoteur 9 grammes", par souci de consommation électrique. 
+</p>
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/vue-eclatee-dun-servomoteur/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/P1000516_recadre.jpg" alt="Vue éclatée d&#39;un servomoteur" width="576" height="640"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Vue éclatée d'un servomoteur</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Le fonctionnement interne d'un servomoteur est assez basique. 
+</p>
+<p class="text-justify">Un petit circuit électronique permet de contrôler un moteur à courant continu en fonction de la position d'un potentiomètre intégré au servomoteur.
+</p>
+<p class="text-justify">La sortie du moteur à courant continu est reliée mécaniquement à une série d'engrenages qui augmente la force (le couple) du servomoteur en réduisant la vitesse de rotation de celui-ci. 
+</p>
+<p class="text-justify">Quand le moteur tourne, les engrenages s'animent, le bras bouge et entraine avec lui le potentiomètre. 
+Le circuit électronique ajuste continuellement la vitesse du moteur pour que le potentiomètre (et par extension le bras) reste toujours au même endroit.
+</p>
+<p class="text-justify">Il suffit de donner une consigne au servomoteur ("reste à 45°" par exemple) et le servomoteur fera son maximum pour rester au plus près de cette consigne.
+</p>
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/illustration-du-signal-de-controle-dun-servomoteur-de-modelisme/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/square_wave_qeYkLCT.jpg" alt="Illustration du signal de contrôle d&#39;un servomoteur de modélisme" width="345" height="640"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Illustration du signal de contrôle</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Cette consigne est transmise au moyen d'un signal numérique, d'une impulsion pour être précis. 
+</p>
+<p class="text-justify">Pour que le servomoteur reste à une position donnée, il faut transmettre toutes les 20 millisecondes (soit à une fréquence de 50Hz) une impulsion d'une longueur comprise entre 1 et 2 millisecondes.
+</p>
+<ul>
+<li><p class="text-justify">Une impulsion de 1 milliseconde correspond à un angle de 0°. </p>
+</li>
+
+<li><p class="text-justify">Une impulsion de 2 millisecondes correspond à un angle de 180°. </p>
+</li>
+
+<li><p class="text-justify">En envoyant une impulsion d'une longueur intermédiaire, on obtient des angles différents, 90° avec une impulsion de 1.5 milliseconde par exemple.</p>
+</li>
+
+</ul>
+
+<p class="text-justify"><em>N.B. La plupart des servomoteurs fonctionnent en 5 volts, mais certains fonctionnent en 3.3 volts. 
+Pensez à bien lire la documentation du servomoteur avant de l'utiliser.</em>
+</p>
+<h3><a id="utiliser-un-servomoteur-avec-une-carte-arduino-genuino">Utiliser un servomoteur avec une carte Arduino / Genuino</a></h3>
+
+<p class="text-justify">Dans ce chapitre, nous allons mettre en oeuvre un petit servomoteur "9 grammes" avec une carte Arduino / Genuino. 
+</p>
+<h4><a id="le-montage">Le montage</a></h4>
+
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/materiel-pour-le-tutoriel-arduino-sweep/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/P1000504_recadre.jpg" alt="Matériel pour le tutoriel Arduino Sweep" width="640" height="524"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Matériel nécessaire</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Pour réaliser ce montage, il va nous falloir :
+</p>
+<ul>
+<li><p class="text-justify">Une carte Arduino UNO (et son câble USB),</p>
+</li>
+
+<li><p class="text-justify">Un servomoteur "9 grammes" ou assimilé,</p>
+</li>
+
+<li><p class="text-justify">Des fils pour câbler notre servomoteur.</p>
+</li>
+
+</ul>
+
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/vue-schematique-du-tutoriel-arduino-sweep/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/tuto_arduino_servo_schéma.jpg" alt="Vue schématique du tutoriel Arduino Sweep" width="614" height="640"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Vue schématique du montage</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/vue-prototypage-du-tutoriel-arduino-sweep/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/tuto_arduino_servo_bb.jpg" alt="Vue prototypage du tutoriel Arduino Sweep" width="640" height="495"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Vue prototypage du montage</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Le câblage est relativement simple : fil rouge du servomoteur sur la broche 5V de la carte Arduino, 
+fil noir sur la broche GND et fil blanc (ou jaune en fonction des constructeurs) sur la broche D9 de la carte Arduino.
+</p>
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/photographie-du-montage-du-tutoriel-arduino-sweep/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/P1000509_recadre.jpg" alt="Photographie du montage du tutoriel Arduino Sweep" width="640" height="513"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Le montage fini</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Dans le cas de mon servomoteur, le constructeur (chinois) s'est fait plaisir au niveau des couleurs. 
+J'ai donc un fil marron à la place du noir et un fil orange à la place du rouge. 
+Dans le doute, toujours consulter la documentation constructeur <img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/wink.5c9123198072.png" alt=";)" class="emoticons">
+</p>
+<p class="text-justify"><em>PS Avec un servomoteur standard, l'alimentation est toujours sur le fil du milieu.</em>
+</p>
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> Attention à la consommation électrique du servomoteur</h3>
+    </div>
+    <div class="panel-body">
+        <p class="text-justify">Un problème récurrent avec le montage ci-dessus est la perte de la communication USB et / ou le redémarrage intempestif de la carte Arduino.
+</p>
+<p class="text-justify">Cela est dû à la consommation électrique du servomoteur. 
+Un servomoteur consomme beaucoup de courant, parfois trop pour une simple carte Arduino. 
+Cette surconsommation déclenche le fusible électronique des cartes Arduino et a pour effet de les faire redémarrer.
+</p>
+<p class="text-justify">Il n'existe qu'une seule solution à ce problème : câbler l'alimentation des servomoteurs à une alimentation 5 volts dédiée.
+</p>
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/vue-prototypage-du-tutoriel-arduino-sweep-avec-alim-externe/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/tuto_arduino_servo_alim_externe_bb.jpg" alt="Vue prototypage du tutoriel Arduino Sweep avec alim externe" width="640" height="355"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Vue prototypage du montage (avec une alimentation +5V DC externe)</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-center"></p><figure class="thumbnail">
+<p class="text-justify"><a href="https://www.carnetdumaker.net/images/vue-schematique-du-tutoriel-arduino-sweep-avec-alim-externe/"><img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/tuto_arduino_servo_alim_externe_schéma.jpg" alt="Vue schématique du tutoriel Arduino Sweep avec alim externe" width="640" height="510"></a>
+</p>
+<figcaption class="caption"><p class="text-center">Vue schématique du montage (avec une alimentation +5V DC externe)</p>
+</figcaption>
+
+</figure>
+<p></p>
+
+<p class="text-justify">Le câblage d'un ou plusieurs servomoteurs sur une alimentation externe est relativement simple.
+</p>
+<p class="text-justify">Le "+" de chaque servomoteur doit être relié au "+" de l'alimentation externe. 
+Il en va de même pour les "-" de chaque servomoteur qui doivent être reliés au "-" de l'alimentation.
+La broche <code>GND</code> de la carte Arduino doit elle aussi être reliée au "-" de l'alimentation.
+</p>
+<p class="text-justify"><strong>N.B. La masse de l'alimentation et des servomoteurs doit toujours être reliée à la masse de la carte Arduino.
+Si la masse de la carte Arduino et des servomoteurs n'est pas commune, rien ne fonctionnera.</strong>
+</p>
+<p class="text-justify">De plus, avec de gros servomoteurs comme le Futuba S3003, il est souvent nécessaire de câbler un condensateur de 10 ~ 100µF 
+en parallèle de l'alimentation des servomoteurs, pour éviter les oscillations intempestives du bras.
+</p>
+<p class="text-justify">Attention lors du câblage du condensateur, les condensateurs chimiques (ceux en forme de cylindre) sont des composants polarisés.
+Le "-" d'un condensateur chimique est matérialisé par une bande blanche sur le côté du condensateur.
+</p>
+<p class="text-justify"><strong>N.B. Evitez d'inverser le "+" et le "-", les condensateurs n'aiment pas du tout ça et explosent quand cela arrive.
+La fumée qui s'en échappe n'est pas très bonne pour la santé, mais surtout, l'odeur est abominable.</strong>
+</p>
+    </div>
+</div>
+
+<h4><a id="le-code">Le code</a></h4>
+
+<p class="text-justify">Pour faire bouger notre servomoteur, nous allons devoir utiliser une bibliothèque de code, nommée <a href="https://www.arduino.cc/en/Reference/Servo">"Servo"</a>. 
+Celle-ci est fournie de base avec l'environnement de développement Arduino.
+</p>
+<p class="text-justify">La bibliothèque Servo permet de contrôler jusqu'à 12 servomoteurs simultanément avec une carte Arduino UNO et 48 avec une carte Arduino Mega.
+</p>
+<div class="panel panel-warning">
+    <div class="panel-body">
+        <i class="fa fa-exclamation-triangle text-warning"></i> <p class="text-justify">Avec une carte Arduino UNO, l'utilisation de la bibliothèque Servo rend inutilisable les broches <code>D9</code> et <code>D10</code> en PWM avec <code>analogWrite()</code>.
+</p>
+<p class="text-justify">Avec une carte Arduino Mega, 11 servomoteurs peuvent être utilisés simultanément sans poser de problèmes particuliers. 
+A partir de 12 servomoteurs, les broches <code>D11</code> et <code>D12</code> ne pourront plus être utilisées en PWM avec <code>analogWrite()</code>.
+</p>
+    </div>
+</div>
+
+<h5><a id="mise-en-oeuvre-de-la-bibliotheque-servo">Mise en oeuvre de la bibliothèque Servo</a></h5>
+
+<p class="text-justify">La bibliothèque Servo est fournie de base avec l'environnement de développement Arduino. 
+Il n'y a donc pas d'installation à prévoir. 
+</p>
+<p class="text-justify">Il suffit d'importer la bibliothèque en ajoutant cette ligne en début de programme pour l'utiliser :
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #BC7A00">#include</span> <span style="color: #408080; font-style: italic">&lt;Servo.h&gt;</span><span style="color: #BC7A00"></span>
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">La bibliothèque Servo est une bibliothèque <a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_objet">orientée object</a>, 
+cela signifie qu'elle fonctionne en assignant une variable (un objet) à chaque servomoteur que l'on souhaite utiliser.
+</p>
+<p class="text-justify">Pour créer un objet Servo, il suffit de déclarer une variable (globale) de type "Servo", exemple :
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Servo monServomoteur;
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">Si vous souhaitez utiliser plusieurs servomoteurs simultanément, il faut créer plusieurs variables, une par servomoteur.
+</p>
+<p class="text-justify"><em>PS Un exemple de code complet est disponible en fin de chapitre <img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/wink.5c9123198072.png" alt=";)" class="emoticons"></em>
+</p>
+<h5><a id="initialisation-de-la-bibliotheque-servo">Initialisation de la bibliothèque Servo</a></h5>
+
+<p class="text-justify">L'initialisation de la bibliothèque Servo se fait au moyen de la fonction <a href="https://www.arduino.cc/en/Reference/ServoAttach">attach()</a> de chaque objet de type Servo. Exemple :
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1
+2
+3</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #B00040">void</span> <span style="color: #0000FF">setup</span>() { 
+  monServomoteur.attach(<span style="color: #666666">9</span>);
+}
+</pre></div>
+</td></tr></tbody></table></div>
+
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Servo.attach(<span style="color: #B00040">int</span> broche);
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">La fonction <a href="https://www.arduino.cc/en/Reference/ServoAttach">attach()</a> prend en argument un unique paramètre obligatoire correspond au numéro de broche sur laquelle le servomoteur est câblé.
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Servo.attach(<span style="color: #B00040">int</span> broche, <span style="color: #B00040">unsigned</span> <span style="color: #B00040">long</span> min, <span style="color: #B00040">unsigned</span> <span style="color: #B00040">long</span> max);
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">La fonction <code>attach()</code> peut prendre en plus deux paramètres optionnels, "min" et "max", 
+correspondant respectivement à la durée minimum et maximum en microsecondes de l'impulsion de contrôle vu en début d'article.
+</p>
+<p class="text-justify">Les durées par défaut sont de 544µs pour 0° ~ 240µs pour 180°. 
+Ces valeurs par défaut sont conçues pour fonctionner avec la grande majorité des servomoteurs du commerce. 
+</p>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-info-circle"></i> Compatibilité avec les versions Arduino 0016 et inférieure</h3>
+    </div>
+    <div class="panel-body">
+        <p class="text-justify">Si vous utilisez une vieille version du logiciel Arduino, version 0016 ou inférieur,
+la bibliothèque Servo ne permet dans ce cas que d'utiliser 2 servomoteurs, sur les broches <code>D9</code> et <code>D10</code> uniquement.
+</p>
+<p class="text-justify">Cette limitation (assez contraignante) n'existe que dans ces versions. Il suffit d'utiliser une version plus récente pour ne plus avoir de problème.
+</p>
+    </div>
+</div>
+
+<p class="text-justify">Si plus tard dans votre code vous souhaitez vérifier qu'un objet Servo est bien attaché à une broche, vous pouvez utiliser la fonction <a href="https://www.arduino.cc/en/Reference/ServoAttached">attached()</a>.
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #B00040">bool</span> Servo.attached();
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">La fonction <a href="https://www.arduino.cc/en/Reference/ServoAttached">attached()</a> retourne un booléen, 
+Vrai (<code>true = 1</code>) si l'objet Servo est attaché à une broche, 
+Faux (<code>false = 0</code>) dans le cas contraire.
+</p>
+<p class="text-justify">Et si vous souhaitez détacher un objet Servo d'une broche, il suffit d'appeler la fonction <a href="https://www.arduino.cc/en/Reference/ServoDetach">detach()</a>.
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Servo.detach();
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">La fonction <a href="https://www.arduino.cc/en/Reference/ServoDetach">detach()</a> ne prend aucun paramètre et ne retourne aucune valeur. 
+Il suffit de l'appeler pour détacher l'objet Servo de sa broche.
+</p>
+<p class="text-justify"><em>N.B. Si vous détachez tous les objets Servo de leurs broches respectives, 
+la bibliothèque Servo libère automatiquement les broches <code>D9</code> et <code>D10</code> (ou <code>D11</code> et <code>D12</code> sur Mega) qui redeviennent utilisables avec <code>analogWrite()</code>.</em>
+</p>
+<h5><a id="modification-de-langle-du-servomoteur">Modification de l'angle du servomoteur</a></h5>
+
+<p class="text-justify">Pour modifier l'angle du bras du servomoteur, il existe deux solutions : <a href="https://www.arduino.cc/en/Reference/ServoWrite">write()</a> et <a href="https://www.arduino.cc/en/Reference/ServoWriteMicroseconds">writeMicroseconds()</a>.
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Servo.write(<span style="color: #B00040">int</span> angle);
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">La fonction <a href="https://www.arduino.cc/en/Reference/ServoWrite">write()</a> permet de modifier l'angle du bras du servomoteur en donnant en paramètre l'angle en question,
+sous la forme d'un nombre entier compris entre 0° et 180°.
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #B00040">int</span> Servo.read();
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">Si par la suite, vous voulez récupérer la dernière valeur d'angle affectée avec la fonction <code>write()</code>, 
+il suffit d'appeler la fonction <a href="https://www.arduino.cc/en/Reference/ServoRead">read()</a> qui retourne la dernière valeur connue.
+</p>
+<p class="text-justify"><em>N.B. L'amplitude de rotation disponible dépend du modèle de servomoteur. 
+Certains servomoteurs peuvent faire un 0° ~ 180° sans problème, quand d'autre arrive à peine à tourner de 60°. 
+Pensez à bien lire les spécifications techniques <img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/wink.5c9123198072.png" alt=";)" class="emoticons"></em>
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%">1</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Servo.writeMicroseconds(<span style="color: #B00040">unsigned</span> <span style="color: #B00040">long</span> us);
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify">La fonction <a href="https://www.arduino.cc/en/Reference/ServoWriteMicroseconds">writeMicroseconds()</a> permet de modifier 
+l'angle du bras du servomoteur en donnant en paramètre la durée de l'impulsion à transmettre au servomoteur.
+</p>
+<p class="text-justify">Avec un servomoteur standard, une valeur de 1000µs donnera un angle de 0° et une valeur de 2000µs donnera un angle de 180°. 
+Cependant, avec certains servomoteurs, ces valeurs peuvent aller jusqu'à une plage de l'ordre de 700 ~ 2300µs pour 0 ~ 180°.
+</p>
+<p class="text-justify">Cette fonction permet de choisir précisément l'angle du bras en fonction du servomoteur utilisé. 
+Il est cependant nécessaire de faire des tests aux préalables pour déterminer les limites du bras.
+</p>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-heartbeat"></i> C'est quoi ce bruit ?</h3>
+    </div>
+    <div class="panel-body">
+        <p class="text-justify">Quand on demande à un servomoteur d'aller au-delà de ses limites fonctionnelles (en lui demandant de faire un 360° par exemple), on entend en général un bruit aigu.
+</p>
+<p class="text-justify">Si le servomoteur émet un bruit aigu / inhabituel, c'est que vous lui demandez l'impossible <img src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/wink.5c9123198072.png" alt=";)" class="emoticons">
+</p>
+<p class="text-justify">Bloquer le bras d'un servomoteur dans une position "en force" n'est pas très bon et finira par le tuer. 
+Cela induit aussi une très forte consommation de courant.
+</p>
+    </div>
+</div>
+
+<h5><a id="exemple-sweep">Exemple : Sweep</a></h5>
+
+<p class="text-justify">Pour illustrer l'utilisation des fonctions décrites ci-dessus, voici un petit exemple de code nommé "Sweep".
+</p>
+<p class="text-justify">Son but est simple : faire tourner le bras du servomoteur dans un sens puis dans l'autre, indéfiniment.
+</p>
+<p class="text-justify">Exemple Sweep utilisant <code>Servo.write()</code> avec commentaires : 
+</p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic">/**</span>
+<span style="color: #408080; font-style: italic"> * Exemple de code pour un servomoteur, il fait faire des va-et-vient à la tête du servomoteur.</span>
+<span style="color: #408080; font-style: italic"> */</span>
+
+ <span style="color: #408080; font-style: italic">/* Inclut la lib Servo pour manipuler le servomoteur */</span>
+<span style="color: #BC7A00">#include</span> <span style="color: #408080; font-style: italic">&lt;Servo.h&gt;</span><span style="color: #BC7A00"></span>
+
+<span style="color: #408080; font-style: italic">/* Créer un objet Servo pour contrôler le servomoteur */</span>
+Servo monServomoteur;
+
+<span style="color: #B00040">void</span> <span style="color: #0000FF">setup</span>() {
+    
+  <span style="color: #408080; font-style: italic">// Attache le servomoteur à la broche D9</span>
+  monServomoteur.attach(<span style="color: #666666">9</span>);
+}
+
+<span style="color: #B00040">void</span> <span style="color: #0000FF">loop</span>() {
+
+  <span style="color: #408080; font-style: italic">// Fait bouger le bras de 0° à 180°</span>
+  <span style="color: #008000; font-weight: bold">for</span> (<span style="color: #B00040">int</span> position <span style="color: #666666">=</span> <span style="color: #666666">0</span>; position <span style="color: #666666">&lt;=</span> <span style="color: #666666">180</span>; position<span style="color: #666666">++</span>) {
+    monServomoteur.write(position);
+    delay(<span style="color: #666666">15</span>);
+  }
+  
+  <span style="color: #408080; font-style: italic">// Fait bouger le bras de 180° à 10°</span>
+  <span style="color: #008000; font-weight: bold">for</span> (<span style="color: #B00040">int</span> position <span style="color: #666666">=</span> <span style="color: #666666">180</span>; position <span style="color: #666666">&gt;=</span> <span style="color: #666666">0</span>; position<span style="color: #666666">--</span>) {
+    monServomoteur.write(position);
+    delay(<span style="color: #666666">15</span>);
+  }
+}
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify"><em>L'extrait de code ci-dessus est disponible en téléchargement sur <a href="https://www.carnetdumaker.net/snippets/35/">cette page</a> (le lien de téléchargement en .zip contient le projet Arduino prêt à l'emploi).
+
+Exemple Sweep utilisant <code>Servo.writeMicroseconds()</code> avec commentaires : 
+
+</em></p>
+<div class="codetable"><table class="highlighttable"><tbody><tr><td><div class="linenodiv" style="background-color: #f0f0f0; padding-right: 10px"><pre style="line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic">/**</span>
+<span style="color: #408080; font-style: italic"> * Exemple de code pour un servomoteur, il fait faire des va-et-vient à la tête du servomoteur.</span>
+<span style="color: #408080; font-style: italic"> */</span>
+
+ <span style="color: #408080; font-style: italic">/* Inclut la lib Servo pour manipuler le servomoteur */</span>
+<span style="color: #BC7A00">#include</span> <span style="color: #408080; font-style: italic">&lt;Servo.h&gt;</span><span style="color: #BC7A00"></span>
+
+<span style="color: #408080; font-style: italic">/* Créer un objet Servo pour contrôler le servomoteur */</span>
+Servo monServomoteur;
+
+<span style="color: #B00040">void</span> <span style="color: #0000FF">setup</span>() {
+    
+  <span style="color: #408080; font-style: italic">// Attache le servomoteur à la broche D9</span>
+  monServomoteur.attach(<span style="color: #666666">9</span>);
+}
+
+<span style="color: #B00040">void</span> <span style="color: #0000FF">loop</span>() {
+
+  <span style="color: #408080; font-style: italic">// Fait bouger le bras de 0° à 180°</span>
+  <span style="color: #008000; font-weight: bold">for</span> (<span style="color: #B00040">unsigned</span> <span style="color: #B00040">long</span> position <span style="color: #666666">=</span> <span style="color: #666666">1000</span>; position <span style="color: #666666">&lt;=</span> <span style="color: #666666">2000</span>; position <span style="color: #666666">+=</span> <span style="color: #666666">5</span>) {
+    monServomoteur.writeMicroseconds(position);
+    delay(<span style="color: #666666">15</span>);
+  }
+  
+  <span style="color: #408080; font-style: italic">// Fait bouger le bras de 180° à 10°</span>
+  <span style="color: #008000; font-weight: bold">for</span> (<span style="color: #B00040">unsigned</span> <span style="color: #B00040">long</span> position <span style="color: #666666">=</span> <span style="color: #666666">2000</span>; position <span style="color: #666666">&gt;=</span> <span style="color: #666666">1000</span>; position <span style="color: #666666">-=</span> <span style="color: #666666">5</span>) {
+    monServomoteur.writeMicroseconds(position);
+    delay(<span style="color: #666666">15</span>);
+  }
+}
+</pre></div>
+</td></tr></tbody></table></div>
+
+<p class="text-justify"><em>L'extrait de code ci-dessus est disponible en téléchargement sur <a href="https://www.carnetdumaker.net/snippets/34/">cette page</a> (le lien de téléchargement en .zip contient le projet Arduino prêt à l'emploi).
+
+
+</em></p>
+<h3><a id="conclusion">Conclusion</a></h3>
+
+<p class="text-justify">Ce tutoriel est désormais terminé.
+</p>
+<p class="text-justify">Si ce tutoriel vous a plu, n'hésitez pas à le commenter sur le forum, à le diffuser sur les réseaux sociaux et à soutenir le site si cela vous fait plaisir.</p>
+
+        
+
+        <!-- Article footnotes (HTML) -->
+        
+
+        <!-- Article foot notes -->
+        
+            
+        
+
+        <!-- Article image attachments (gallery like) -->
+        
+            
+        
+    </div>
+
+
+        </div>
+
+        <!-- Extra after content -->
+        <div class="row">
+            
+
+    <!-- Follow-up and related articles -->
+    <div class="col-md-12">
+
+        <!-- Forward follow-up -->
+        
+            
+        
+
+        <!-- Reverse follow-up -->
+        
+            
+        
+
+        <!-- Forward related articles -->
+        
+            
+        
+
+        <!-- Reverse related articles -->
+        
+            
+                <div class="col-md-6">
+                    <h3><i class="fa fa-lightbulb-o"></i> Articles pouvant vous intéresser</h3>
+                    <ul>
+                        
+                            <li><a href="https://www.carnetdumaker.net/articles/bricoler-un-servomoteur-rotation-continue/">Bricoler un servomoteur à rotation continue</a></li>
+                        
+                    </ul>
+                </div>
+            
+        
+    </div>
+
+    <!-- Forum link -->
+    <div class="col-md-12">
+        <hr>
+        
+            <p class="text-center"><i class="fa fa-comments"></i> <a href="https://www.carnetdumaker.net/forum/topics/44-controler-un-servomoteur-avec-une-carte-arduino-genuino/">Cliquez ici pour accéder aux commentaires de l'article.</a></p>
+        
+    </div>
+
+        </div>
+
+        <!-- Back to top button -->
+        <a id="back-to-top" href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#" class="btn btn-primary btn-lg back-to-top" role="button" title="" data-toggle="tooltip" data-placement="left" data-original-title="Revenir en haut de page" aria-describedby="tooltip478116" style="display: inline;"><span class="glyphicon glyphicon-chevron-up"></span></a><div class="tooltip fade left in" role="tooltip" id="tooltip478116" style="top: 0px; left: -175px; display: block;"><div class="tooltip-arrow" style="top: 0%;"></div><div class="tooltip-inner">Revenir en haut de page</div></div>
+    </div>
+
+    <!-- Page footer -->
+    <div class="container container-narrow page-footer">
+
+        <!-- Footer links -->
+        <hr>
+        <footer>
+            <div class="row">
+                <div class="col-sm-4">
+                    <ul class="list-unstyled text-center">
+                        <li><a href="https://www.carnetdumaker.net/pages/qui-sommes-nous/"><i class="fa fa-users"></i> Qui sommes-nous ?</a></li>
+                        <li><a href="https://www.carnetdumaker.net/pages/pourquoi-ce-site/"><i class="fa fa-rocket"></i> Pourquoi ce site ?</a></li>
+                        <li><a href="https://www.carnetdumaker.net/pages/nos-engagements/"><i class="fa fa-smile-o"></i> Nos engagements</a></li>
+                        <li><a href="https://www.carnetdumaker.net/pages/faq/"><i class="fa fa-comments"></i> Foire aux questions</a></li>
+                        <li><a href="https://www.carnetdumaker.net/pages/conditions-generales-d-utilisation/"><i class="fa fa-university"></i> Conditions générales d'utilisation</a></li>
+                        <li><a href="https://www.carnetdumaker.net/pages/plan-du-site/"><i class="fa fa-sitemap"></i> Plan du site</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="list-unstyled text-center">
+                        <li><a href="https://www.carnetdumaker.net/pages/nous-contacter/"><i class="fa fa-envelope-o"></i> Nous contacter</a></li>
+                        <li><a href="https://www.carnetdumaker.net/pages/mentions-legales/"><i class="fa fa-gavel"></i> Mentions légales</a></li>
+                        <li><a href="https://www.carnetdumaker.net/pages/cookies/"><i class="fa fa-eye-slash"></i> Utilisation des cookies</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="list-unstyled text-center">
+                        <li><a href="https://twitter.com/carnetdumaker"><i class="fa fa-twitter"></i> @CarnetDuMaker</a></li>
+                        <li><a href="https://plus.google.com/102700422941341090773/about"><i class="fa fa-google-plus"></i> +CarnetDuMaker</a></li>
+                        <li><a href="https://www.facebook.com/CarnetDuMaker/"><i class="fa fa-facebook-official"></i> Page CarnetDuMaker</a></li>
+                        <li><a href="https://www.youtube.com/channel/UCAafmzWNcunTWO5d5cli2yw"><i class="fa fa-youtube"></i> Chaine CarnetDuMaker</a></li>
+                        <li><a href="https://github.com/TamiaLab"><i class="fa fa-github"></i> Github TamiaLab</a></li>
+                        <li><a href="https://www.carnetdumaker.net/articles/controler-un-servomoteur-avec-une-carte-arduino-genuino/#"><i class="fa fa-birthday-cake"></i> The cake is a lie</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row center-block">
+                <p class="text-center">© <a href="http://tamialab.fr/">TamiaLab</a> 2016</p>
+                <p class="text-center">Les codes sources présents sur Carnet du Maker sont la plupart du temps publiés sous <a href="http://www.gnu.org/licenses/gpl-3.0.fr.html">licence GPLv3</a>.
+                Mais, sauf mention contraire, tous les éléments du site (textes, images, codes sources, etc.), exception faite des contenus publiés sur le forum, sont la propriété exclusive de TamiaLab.
+                Toute reproduction totale ou partielle, sans autorisation préalable de l'auteur et de TamiaLab, sera succeptible d'entrainer des poursuites judiciaires.</p>
+                <p class="text-center">Motifs décoratifs réalisés par <a href="http://subtlepatterns.com/">Subtle Patterns</a> sous licence CC BY-SA 3.0.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/bootstrap.min.c5b5b2fa19bd.js.téléchargement"></script>
+    <script src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/jquery.backstretch.min.91d4cd427e3b.js.téléchargement"></script>
+    <script>
+        // Attach Backstrech to the body's background image
+        //$.backstretch("path/to/image.jpg", {fade: "normal"});
+        
+    </script>
+    <script src="./Contrôler un servomoteur avec une carte Arduino _ Genuino _ Carnet du maker - L&#39;esprit Do It Yourself_files/main.7831ce876911.js.téléchargement"></script>
+
+    <!-- Extra scripts -->
+    
+
+
+</body></html>

@@ -1,0 +1,35 @@
+.view {
+    background-image: url("sary/header.jpg")no-repeat center center;
+    background-size: cover;
+    backface-visibility: 100%;
+}
+    
+.navbar {
+    background-color: transparent;
+}
+
+.top-nav-collapse {
+    background-color: #4285F4;
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #4285F4;
+    }
+}
+body
+ {
+    /*background-color: rgb(244,244,244); */
+            /*background-image: url('sary/body.jpg');*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.parallax-window
+{
+     min-height: 200px;
+     background: transparent;
+ }
+.window-wrapper
+{
+     height: 300px;
+ }
